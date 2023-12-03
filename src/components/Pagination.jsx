@@ -8,7 +8,7 @@ export default function Pagination({
 }) {
   return (
     <div
-      className={`flex flex-row items-center gap-1 justify-end mr-10 ${className}`}>
+      className={`flex flex-row items-center gap-2 justify-end mr-10 ${className}`}>
       <span className="text-xs mr-4">
         Page {page} Of {end}
       </span>

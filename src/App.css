@@ -30,8 +30,8 @@
 
 .dashboard {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   padding: 1rem 0.2rem;
   background: #fff;
   border-radius: 0.5rem;
@@ -46,6 +46,11 @@
   align-items: center;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  width: -webkit-fill-available;
+}
+
+#checkbox1:checked ~ .parent {
+  background: grey;
 }
 
 .detailsitems {
@@ -90,10 +95,6 @@
   color: red;
 }
 
-#delete-selected-btn {
-  color: red;
-}
-
 .select-btn {
   border: rgb(144, 197, 207) 1px solid;
   display: inline-flex;
@@ -113,4 +114,9 @@
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0.00938em;
+}
+
+.footer {
+  padding: 1rem 0.2rem;
+  font-weight: 500;
 }

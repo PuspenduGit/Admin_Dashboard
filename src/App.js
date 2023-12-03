@@ -115,7 +115,7 @@ const App = () => {
 
   useEffect(() => {
     getData();
-  },[]);
+  }, []);
 
   useEffect(() => {
     setCurrentPageData(filteredData.slice((page - 1) * limit, page * limit));
@@ -146,9 +146,31 @@ const App = () => {
           <button
             className="btn"
             disabled={filteredData.length === 0}
+            // onClick={() => {
+            //   setData([]);
+            //   setFilteredData([]);
+            // }}
             onClick={() => {
-              setData([]);
-              setFilteredData([]);
+              const newData = data.filter(
+                (item) => !selected.includes(item.id)
+              );
+              setData(newData);
+              setFilteredData(
+                newData.filter(
+                  (item) =>
+                    item.name
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    item.email
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    item.role
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()) ||
+                    item.id.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+              );
+              setSelected([]);
             }}>
             <DeleteOutlineOutlinedIcon className="deleteIcon" />
           </button>
@@ -185,7 +207,13 @@ const App = () => {
               {currentpageData.map((item, index) => {
                 return (
                   <Paper key={index} className="detailsitems">
-                    <div className="parent">
+                    <div
+                      className="parent"
+                      style={{
+                        backgroundColor: selected.includes(item.id)
+                          ? "#BEBEBE"
+                          : "",
+                      }}>
                       <Checkbox
                         className="checkbox"
                         checked={selected.includes(item.id)}
@@ -279,51 +307,20 @@ const App = () => {
             </Grid>
           </Grid>
         </Box>
-      </div>
-      <section className="footer">
-        <div className="footer-content">
-          <span className="text-xs">
-            {selected.length} of {filteredData.length} Row(s) Selected
-          </span>
-          <button
-            className="select-btn"
-            disabled={selected.length === 0}
-            onClick={() => {
-              const newData = data.filter(
-                (item) => !selected.includes(item.id)
-              );
-              setData(newData);
-              setFilteredData(
-                newData.filter(
-                  (item) =>
-                    item.name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                    item.email
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                    item.role
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                    item.id.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-              );
-              setSelected([]);
-            }}>
-            Delete selected
-            <DeleteOutlineOutlinedIcon
-              className="deleteIcon"
-              id="delete-selected-btn"
+        <section className="footer">
+          <div className="footer-content">
+            <span className="text-s">
+              {selected.length} of {filteredData.length} Row(s) Selected
+            </span>
+            <Pagination
+              className="pagination"
+              page={page}
+              end={Math.ceil(filteredData.length / limit)}
+              setPage={setPage}
             />
-          </button>
-        </div>
-        <Pagination
-          className=""
-          page={page}
-          end={Math.ceil(filteredData.length / limit)}
-          setPage={setPage}
-        />
-      </section>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
