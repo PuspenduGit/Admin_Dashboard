@@ -118,15 +118,6 @@ const App = () => {
   },[]);
 
   useEffect(() => {
-    // setFilteredData(
-    //   data.filter(
-    //     (item) =>
-    //       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //       item.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //       item.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //       item.id.toLowerCase().includes(searchQuery.toLowerCase())
-    //   )
-    // );
     setCurrentPageData(filteredData.slice((page - 1) * limit, page * limit));
     setSelected([]);
   }, [filteredData, searchQuery, data, page, limit]);
